@@ -1,37 +1,128 @@
-// components/Card.jsx
 "use client";
+
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
+import { projectsData } from "@/datas/data";
 
+// ================== DATA ==================
+export const dataCard = projectsData;
 
-const dataCard = [
-    {img:"",title:"",}
-]
+// ================== ANIMATION VARIANTS ==================
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+    scale: 0.95,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 3,
+      ease: "easeOut",
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    scale: 0.9,
+    transition: { duration: 0.3 },
+  },
+};
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+// ================== COMPONENT ==================
 const Projects = () => {
-   return (
-    <div className="relative w-[190px] h-[254px] flex flex-col justify-end p-3 gap-3 rounded-lg cursor-pointer text-white overflow-hidden group bg-black">
-      
-      {/* Gradient border/background */}
-      <div className="absolute inset-0 -left-1 w-[200px] h-[264px] rounded-xl bg-gradient-to-br from-[#e81cff] to-[#40c9ff] transition-transform duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] group-hover:rotate-[-90deg] group-hover:scale-x-[1.34] group-hover:scale-y-[0.77] z-0"></div>
-      
-      {/* Blur overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#fc00ff] to-[#00dbde] transform scale-[0.95] blur-[20px] transition-[filter] duration-700 group-hover:blur-[30px] z-0"></div>
-      
-      {/* Text content (on top) */}
-      <div className="relative z-10">
-        <Image
-        width={200} 
-        height={200}
-        src={"https://images.unsplash.com/photo-1520209759809-a9bcb6cb3241?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1nfGVufDB8fDB8fHww"} alt="img" />
+  const [showAll, setShowAll] = useState(false);
+  const visibleItems = showAll ? dataCard : dataCard.slice(0, 6);
 
-       
-        <p className="text-[20px] font-bold capitalize">Popular this month</p>
-        <p className="text-[14px]">Powered By</p>
-        <p className="text-[14px] font-semibold text-[#e81cff]">Uiverse</p>
+  return (
+    <div id="projects" className="px-4 md:px-8 py-8">
+      {/* Cards Grid */}
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <AnimatePresence>
+          {visibleItems.map((card) => (
+            <Link
+              href={`/Projects/${card.id}`}
+              key={card.id}
+              className="hover:shadow-fuchsia-900 shadow-xl"
+            >
+              <motion.div
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                exit="exit"
+                layout
+                className="relative w-full h-[300px] flex flex-col justify-end p-4 gap-3 rounded-xl cursor-pointer text-white overflow-hidden group bg-black shadow-lg"
+              >
+                {/* Gradient */}
+                <div
+                  className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#e81cff] to-[#40c9ff]
+                  transition-transform duration-700 group-hover:rotate-[-90deg] group-hover:scale-x-[1.34] group-hover:scale-y-[0.77]"
+                />
+
+                {/* Blur */}
+                <div className="absolute inset-0 bg-gradient-to-br scale-[0.95] blur-[20px] group-hover:blur-[30px]" />
+
+                {/* Content */}
+                <div className="relative z-10 flex flex-col items-start">
+                  <div className="w-full h-40 relative rounded-md overflow-hidden">
+                    <Image
+                      src={card.img}
+                      alt={card.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <p className="text-base font-bold mt-2">{card.title}</p>
+
+                  <Link
+                    href={card.liveDemo}
+                    target="_blank"
+                    className="text-sm text-[#40c9ff] underline mt-1"
+                  >
+                    Live Demo
+                  </Link>
+
+                  <p className="text-xs opacity-70">id: {card.id}</p>
+                </div>
+              </motion.div>
+            </Link>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* See More Button */}
+      <div className="py-6 flex items-center justify-center">
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="py-2 px-6 bg-teal-500 rounded-3xl text-white hover:bg-white hover:text-black font-bold transition-all shadow-lg"
+        >
+          {showAll ? "See Less" : "See More"}
+        </button>
       </div>
     </div>
   );
-}
+};
+
 export default Projects;

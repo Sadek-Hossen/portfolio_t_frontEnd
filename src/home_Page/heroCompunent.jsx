@@ -67,7 +67,7 @@ export default function HeroComponent() {
   const stopDrag = () => setDragging(false);
 
   return (
-    <section className="w-full min-h-screen flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 py-10 text-white">
+    <section id="Home" className="w-full min-h-screen flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 py-10 text-white">
       {/* Left Content */}
       <div className="flex flex-col justify-center items-start space-y-6 w-full lg:w-1/2">
         {/* Hello */}
@@ -89,10 +89,11 @@ export default function HeroComponent() {
 
         {/* Buttons & Social Links */}
         <div className="flex flex-wrap gap-3 sm:gap-4 mt-4">
+       <Link href={"/contrcut"}>
           <button className="bg-blue-600 hover:bg-blue-700 px-5 py-2 sm:px-6 sm:py-3 rounded-lg font-semibold transition duration-300">
             Contact Me
           </button>
-
+       </Link>
           <div className="flex gap-2 sm:gap-3">
             <Link
               href={"https://www.facebook.com/i.ma.na.dzu"}
@@ -107,7 +108,7 @@ export default function HeroComponent() {
               <IoLogoTwitter />
             </Link>
             <Link
-              href={"/"}
+              href={"https://www.linkedin.com/in/sadek38/"}
               className="text-white p-3 border rounded-full hover:bg-blue-400 hover:text-black text-xl sm:text-2xl transition-all"
             >
               <CiLinkedin />
@@ -149,7 +150,7 @@ export default function HeroComponent() {
           style={{ width: `${position}%` }}
         >
           <Image
-            src="/img/Me.jpg"
+            src="/img/me3.png"
             alt="Before"
             fill
             className="object-cover"

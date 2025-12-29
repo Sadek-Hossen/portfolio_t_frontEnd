@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 
 const Timeline = () => {
   const items = [
@@ -31,41 +32,65 @@ const Timeline = () => {
     },
   ];
 
+  // Animation variants
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.2, ease: "easeOut" },
+    },
+  };
+
   return (
     <div className="relative w-full max-w-6xl mx-auto py-24">
       {/* Gradient Vertical Line */}
-      <div className="absolute left-1/2 top-0 h-[90%] justify-center items-center w-[10px] -translate-x-1/2
-        bg-gradient-to-b from-cyan-400 via-purple-500 to-pink-500" />
+      <div
+        className="absolute left-1/2 top-0 h-[90%] justify-center items-center w-[10px] -translate-x-1/2
+        bg-gradient-to-b from-cyan-400 via-purple-500 to-pink-500"
+      />
 
-      <ul className="">
+      <ul>
         {items.map((item, index) => (
           <li key={index} className="relative flex items-center">
             {/* Left card */}
             {item.side === "left" && (
-              <div className="md:w-1/2  md:pr-12 text-right">
-                <div className="rounded-2xl border mb-6 border-white/10  bg-white/5 
-                  backdrop-blur-lg p-6 text-white shadow-xl ">
+              <motion.div
+                className="md:w-1/2 md:pr-12 text-right"
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+              >
+                <div className="rounded-2xl border mb-6 border-white/10 bg-white/5 
+                  backdrop-blur-lg p-6 text-white shadow-xl">
                   <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                   <p className="text-sm text-white/70">{item.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {/* Center Dot */}
-            <div className="absolute  left-1/2 -translate-x-1/2 z-10">
+            <div className="absolute left-1/2 -translate-x-1/2 z-10">
               <span className="flex h-5 w-5 rounded-full
                 bg-gradient-to-r from-cyan-400 to-pink-500 ring-4 ring-[#0b1220]" />
             </div>
 
             {/* Right card */}
             {item.side === "right" && (
-              <div className="md:w-1/2   md:pl-12 ml-auto md:text-left">
+              <motion.div
+                className="md:w-1/2 md:pl-12 ml-auto md:text-left"
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+              >
                 <div className="rounded-2xl mb-6 md:mb-0 border border-white/10 bg-white/5 
                   backdrop-blur-lg p-6 text-white shadow-xl">
                   <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                   <p className="text-sm text-white/70">{item.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             )}
           </li>
         ))}

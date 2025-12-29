@@ -1,39 +1,63 @@
+"use client";
+
 import React from "react";
-import { FaLaptopCode, FaServer } from "react-icons/fa"; // FaServer used instead of FaComputer
+import { motion } from "framer-motion";
+import { FaLaptopCode, FaServer } from "react-icons/fa";
 import { IoQrCodeSharp, IoLogoDesignernews } from "react-icons/io5";
 
 const datas = [
-  {  id:1,
+  {
+    id: 1,
     title: "Front-End Development",
     description:
       "Building responsive, interactive, and visually appealing websites using HTML, CSS, JavaScript, and modern frameworks.",
     logo: FaLaptopCode,
   },
-  { id:2,
+  {
+    id: 2,
     title: "Back-End Development",
     description:
       "Creating robust server-side applications, APIs, and databases using Node.js, Express, and other backend technologies.",
     logo: IoQrCodeSharp,
   },
-  { id:3,
+  {
+    id: 3,
     title: "Graphic Design",
     description:
       "Designing creative graphics, UI elements, and visuals with modern design tools for web and digital media.",
     logo: IoLogoDesignernews,
   },
-  { id:4,
+  {
+    id: 4,
     title: "Advanced Computer Skills",
     description:
       "Expertise in software, tools, and advanced computer applications to optimize productivity and technical solutions.",
-    logo: FaServer, // Changed from FaComputer
+    logo: FaServer,
   },
 ];
 
+// Animation variants
+const cardVariants = {
+  hidden: { opacity: 0, y: 60 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1.2, ease: "easeOut" },
+  },
+};
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
 
 function Experiences() {
   return (
-    <div className="py-12 bg-transparent">
+    <div id="Experience" className="py-12 bg-transparent">
       {/* Header */}
       <div className="flex flex-col justify-center items-center py-6">
         <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-400 via-teal-400 to-green-400 bg-clip-text text-transparent">
@@ -46,23 +70,30 @@ function Experiences() {
       </div>
 
       {/* Skills */}
-      <div className="max-w-6xl  mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-10 px-4">
+      <motion.div
+        className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-10 px-4"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         {datas.map((e, id) => {
-          const Icon = e.logo; // get React component
+          const Icon = e.logo;
           return (
-            <div
+            <motion.div
               key={id}
-              className="flex hover:border-amber-400 border-2 flex-col items-center bg-white/5 backdrop-blur-md p-6 rounded-2xl shadow hover:scale-105 transition-transform duration-300"
+              variants={cardVariants}
+              className="flex hover:shadow-fuchsia-900 shadow-xl hover:border-amber-400 border-2 flex-col items-center bg-white/5 backdrop-blur-md p-6 rounded-2xl shadow hover:scale-105 transition-transform duration-300"
             >
               <Icon className="text-5xl text-blue-400 mb-4" />
               <h2 className="text-xl font-bold text-white text-center mb-2">
                 {e.title}
               </h2>
               <p className="text-gray-300 text-center text-sm">{e.description}</p>
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }

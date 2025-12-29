@@ -1,75 +1,114 @@
-
-"use client"
-import React, {useState} from "react";
-
-// react icons
-import {IoIosSearch} from "react-icons/io";
-import {CiMenuFries} from "react-icons/ci";
+"use client";
+import React, { useState } from "react";
+import { IoIosSearch } from "react-icons/io";
+import { CiMenuFries } from "react-icons/ci";
 import Image from "next/image";
 import Link from "next/link";
+import useEffectBackendReuse from "@/useEfect-reuse/useEffect";
+
 
 
 const ResponsiveNavbar = () => {
-    const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+ const { user, loading } = useEffectBackendReuse()
+  console.log("user:", user)
+  return (
+    <nav
+      className="
+        fixed top-0 left-0 right-0 z-50
+        flex items-center justify-between
+        w-full
+        dark:bg-slate-900/80 bg-transparent
+        backdrop-blur-md
+        px-2.5 py-2
+      "
+    >
+      {/* logo */}
+      <Link href="/">
+        <Image
+          width={100}
+          height={100}
+          src="/favicon.ico"
+          alt="logo"
+          className="rounded-full w-[55px]"
+        />
+      </Link>
 
-    return (
-        <nav
-            className="flex items-center justify-between w-full relative dark:bg-slate-900 bg-transparent fixed  px-[10px] py-[8px] ">
-
-            {/* logo */}
-    <Link href={"/"} >
-            <Image  width={100} height={100} src="/favicon.ico" alt="logo" className=" rounded-full w-[55px] "/>
+      {/* nav links */}
+      <ul className="items-center border px-20 py-4 rounded-2xl bg-blue-400/30 gap-[20px] text-[1rem] text-white md:flex hidden">
+        <Link href="/">
+          <li className="nav-item">Home</li>
         </Link>
+        <Link href="#CountDount">
+          <li className="nav-item">Works</li>
+        </Link>
+        <Link href="#Experience">
+          <li className="nav-item">Experience</li>
+        </Link>
+        <Link href="#projects">
+          <li className="nav-item">Projects</li>
+        </Link>
+        <Link href="#Tech">
+          <li className="nav-item">Technology</li>
+        </Link>
+        <Link href="/contrcut">
+          <li className="nav-item">Contruct</li>
+        </Link>
+        {user?  <Link href="/messages">
+          <li className="nav-item">Message</li>
+        </Link> :""}
+      </ul>
 
-            {/* nav links */}
-            <ul className="items-center  border px-20 py-4 rounded-2xl bg-blue-400/30 gap-[20px] text-[1rem] text-white md:flex hidden">
+      {/* action buttons */}
+      <div className="items-center gap-[10px] flex">
+       <Link href={"/img/SadekResume.pdf"}>
+        <button className="py-[7px] text-[1rem] px-[16px] dark:text-[#abc2d3] rounded-full capitalize bg-amber-100 hover:text-[#3B9DF8] transition-all duration-300 sm:flex hidden">
+          Resume
+        </button>
+       </Link>
 
-                <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">home</li>
+        <CiMenuFries
+          className="text-[1.8rem] dark:text-[#abc2d3] mr-1 text-[#424242] cursor-pointer md:hidden flex"
+          onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+        />
+      </div>
 
-                <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">features</li>
+      {/* mobile sidebar */}
+      <aside
+        className={`${
+          mobileSidebarOpen
+            ? "translate-x-0 opacity-100 z-40"
+            : "translate-x-[200px] opacity-0 z-[-1]"
+        } md:hidden bg-white p-4 text-center absolute top-[70px] right-0 w-full sm:w-[50%] rounded-md transition-all duration-300 dark:bg-slate-700`}
+      >
+        
 
-                <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">blogs</li>
-
-                <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">shop</li>
-            </ul>
-
-            {/* action buttons */}
-            <div className="items-center gap-[10px] flex">
-                <button
-                    className="py-[7px] text-[1rem] px-[16px] dark:text-[#abc2d3] rounded-full capitalize bg-amber-100 hover:text-[#3B9DF8] transition-all duration-300 sm:flex hidden">
-                        Resume
-                </button>
-              
-
-                <CiMenuFries
-                    className="text-[1.8rem] dark:text-[#abc2d3] mr-1 text-[#424242]c cursor-pointer md:hidden flex"
-                    onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}/>
-            </div>
-
-            {/* mobile sidebar */}
-            <aside
-                className={` ${mobileSidebarOpen ? "translate-x-0 opacity-100 z-20" : "translate-x-[200px] opacity-0 z-[-1]"} md:hidden bg-white p-4 text-center absolute top-[65px] dark:bg-slate-700 right-0 w-full sm:w-[50%] rounded-md transition-all duration-300`}>
-                <div className="relative mb-5">
-                    <input
-                        className="py-1.5 pr-4 dark:bg-slate-800 dark:text-[#abc2d3] dark:border-slate-900/50 w-full pl-10 rounded-full border border-gray-200 outline-none focus:border-[#3B9DF8]"
-                        placeholder="Search..."/>
-                    <IoIosSearch className="absolute dark:text-slate-400 top-[8px] left-3 text-gray-500 text-[1.3rem]"/>
-                </div>
-                <ul className="items-center gap-[20px] text-[1rem] text-gray-600 flex flex-col">
-
-                    <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">home</li>
-
-                    <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">features</li>
-
-                    <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">blogs</li>
-
-                    <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] dark:text-[#abc2d3] hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize">shop</li>
-
-                </ul>
-            </aside>
-        </nav>
-    );
+        <ul className="flex flex-col gap-[20px] text-[1rem]">
+       <Link href="/">
+          <li className="nav-item">Home</li>
+        </Link>
+        <Link href="#CountDount">
+          <li className="nav-item">Works</li>
+        </Link>
+        <Link href="#Experience">
+          <li className="nav-item">Experience</li>
+        </Link>
+        <Link href="#projects">
+          <li className="nav-item">Projects</li>
+        </Link>
+        <Link href="#Tech">
+          <li className="nav-item">Technology</li>
+        </Link>
+        <Link href="/contrcut">
+          <li className="nav-item">Contruct</li>
+        </Link>
+        {user?  <Link href="/messages">
+          <li className="nav-item">Message</li>
+        </Link> :""}
+        </ul>
+      </aside>
+    </nav>
+  );
 };
 
 export default ResponsiveNavbar;
-          
