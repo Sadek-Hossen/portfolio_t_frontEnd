@@ -1,2 +1,2 @@
-const DB_URL ="http://localhost:5000/api" 
+const DB_URL ="https://portfolio-t-backend.vercel.app/api" 
 export default DB_URL

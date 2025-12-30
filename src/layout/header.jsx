@@ -105,6 +105,11 @@ const ResponsiveNavbar = () => {
         {user?  <Link href="/messages">
           <li className="nav-item">Message</li>
         </Link> :""}
+          <Link href={"/img/SadekResume.pdf"}>
+        <button className="py-[7px] text-[1rem] px-[16px] dark:text-[#abc2d3] rounded-full capitalize bg-amber-100 hover:text-[#3B9DF8] transition-all duration-300 ">
+          Resume
+        </button>
+       </Link>
         </ul>
       </aside>
     </nav>
