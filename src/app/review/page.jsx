@@ -27,7 +27,9 @@ function ReviewPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post(`${DB_URL}/review/createReview`, reviewForm)
+      const res = await axios.post(`${DB_URL}/review/createReview`, reviewForm,
+        {withCredentials:true}
+      )
       setSubmittedReview(reviewForm)
       setReviewForm({ name: '', rating: 5, message: '' })
     } catch (err) {
