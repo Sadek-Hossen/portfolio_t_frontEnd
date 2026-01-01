@@ -78,12 +78,12 @@ const ResponsiveNavbar = () => {
         className={`${
           mobileSidebarOpen
             ? "translate-x-0 opacity-100 z-40"
-            : "translate-x-[200px] opacity-0 z-[-1]"
+            : "translate-x-50 opacity-0 z-[-1]"
         } md:hidden bg-white p-4 text-center absolute top-[70px] right-0 w-full sm:w-[50%] rounded-md transition-all duration-300 dark:bg-slate-700`}
       >
         
 
-        <ul className="flex flex-col gap-[20px] text-[1rem]">
+        <ul className="flex flex-col gap-5 text-[1rem]">
        <Link href="/">
           <li className="nav-item">Home</li>
         </Link>
@@ -106,7 +106,7 @@ const ResponsiveNavbar = () => {
           <li className="nav-item">Message</li>
         </Link> :""}
           <Link href={"/img/SadekResume.pdf"}>
-        <button className="py-[7px] text-[1rem] px-[16px] dark:text-[#abc2d3] rounded-full capitalize bg-amber-100 hover:text-[#3B9DF8] transition-all duration-300 ">
+        <button className="py-1.7 text-[1rem] px-4 dark:text-[#abc2d3] rounded-full capitalize bg-amber-100 hover:text-[#3B9DF8] transition-all duration-300 ">
           Resume
         </button>
        </Link>

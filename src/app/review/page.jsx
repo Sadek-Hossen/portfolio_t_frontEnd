@@ -6,10 +6,13 @@ import DB_URL from '@/URL_DATABASE/db_url'
 import useReview from '@/useEfect-reuse/reviewUseEffect'
 
 function ReviewPage() {
-  const { review: reviewData, loading, error } = useReview()
+   const { review: reviewData, loading, error } = useReview()
+  //const { review, loading, error } = useReview() // difrent wey
   const [currentIndex, setCurrentIndex] = useState(0)
   const itemsPerSlide = 4
-  
+
+
+
 
   const [reviewForm, setReviewForm] = useState({
     name: '',
@@ -30,6 +33,7 @@ function ReviewPage() {
       const res = await axios.post(`${DB_URL}/review/createReview`, reviewForm,
         {withCredentials:true}
       )
+      console.log("this is datas from res: ",res.data)
       setSubmittedReview(reviewForm)
       setReviewForm({ name: '', rating: 5, message: '' })
     } catch (err) {
