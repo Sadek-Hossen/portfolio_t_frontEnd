@@ -6,13 +6,10 @@ import DB_URL from '@/URL_DATABASE/db_url'
 import useReview from '@/useEfect-reuse/reviewUseEffect'
 
 function ReviewPage() {
-   const { review: reviewData, loading, error } = useReview()
-  //const { review, loading, error } = useReview() // difrent wey
+  const { review: reviewData, loading, error } = useReview()
   const [currentIndex, setCurrentIndex] = useState(0)
   const itemsPerSlide = 4
-
-
-
+  
 
   const [reviewForm, setReviewForm] = useState({
     name: '',
