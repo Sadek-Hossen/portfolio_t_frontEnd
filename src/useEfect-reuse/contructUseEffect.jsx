@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react"
 import axios from "axios"
-import DB_URL from "@/URL_DATABASE/db_url"
 
 function useContructs() {
+  const DB_URL = process.env.NEXT_PUBLIC_DB_URL;
   const [contructs, setContructs] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)

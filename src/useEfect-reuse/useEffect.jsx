@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react"
 import axios from "axios"
-import DB_URL from "@/URL_DATABASE/db_url"
 
 function useEffectBackendReuse() {
+  const DB_URL = process.env.NEXT_PUBLIC_DB_URL;
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)

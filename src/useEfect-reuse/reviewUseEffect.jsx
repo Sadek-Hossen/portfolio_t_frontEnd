@@ -1,9 +1,10 @@
-
+'use client'
 import { useEffect, useState } from "react"
 import axios from "axios"
-import DB_URL from "@/URL_DATABASE/db_url"
 
 function useReview() {
+  const DB_URL = process.env.NEXT_PUBLIC_DB_URL
+
   const [review, setReview] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -12,11 +13,14 @@ function useReview() {
     const fetchReview = async () => {
       try {
         const res = await axios.get(
-          `${DB_URL}/review/getReviews`,
-          { withCredentials: true }
+          `${DB_URL}/review/getReviews`
         )
 
-        setReview(res.data.review) 
+        console.log("FULL RESPONSE:", res.data)
+
+        // ✅ FIX
+        setReview(res.data.review)
+
       } catch (err) {
         setError("Failed to fetch review")
       } finally {
@@ -25,7 +29,7 @@ function useReview() {
     }
 
     fetchReview()
-  }, [])
+  }, [DB_URL])
 
   return { review, loading, error }
 }

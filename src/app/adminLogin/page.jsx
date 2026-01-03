@@ -1,11 +1,11 @@
 'use client';
 import React, { useState } from "react";
 import axios from "axios";
-import DB_URL from "@/URL_DATABASE/db_url";
 import { useRouter } from "next/navigation";
 
 
 function AdminLoginPage() {
+  const DB_URL = process.env.NEXT_PUBLIC_DB_URL;
   const router = useRouter()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
